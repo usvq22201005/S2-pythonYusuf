@@ -3,24 +3,40 @@ from random import randint
 
 
 def couleure():
+    global couleur
     couleur = input("Choisissez une couleur en anglais")
     return couleur
 
 def dessine_carre():
-    carre_x = randint(0,100)
-    carre_y = randint(0,100)
-    canvasB.create_rectangle(carre_x-50, carre_y-50, carre_x+50, carre_y+50, fill=couleure)
+    centre_y = randint(50, Canvas_height - 50)
+    centre_x = randint(50, Canvas_width - 50)
+    canvasB.create_rectangle(centre_x-50, centre_y-50, centre_x + 50, centre_y + 50, fill=couleur)
 
+def dessine_croix():
+    centre_y = randint(50, Canvas_height - 50)
+    centre_x = randint(50, Canvas_width - 50)
+    canvasB.create_line(centre_x, centre_y - 50, centre_x, centre_y + 50, fill = couleur)
+    canvasB.create_line(centre_x - 50, centre_y, centre_x + 50, centre_y, fill = couleur)
 
+def dessine_disque():
+    centre_y = randint(50, Canvas_height - 50)
+    centre_x = randint(50, Canvas_width - 50)
+    canvasB.create_oval(centre_x-50, centre_y-50, centre_x + 50, centre_y + 50, fill=couleur)
 
+        
+
+couleur = "blue"
+    
+Canvas_height = 600
+Canvas_width = 500
 
 fenetre = tk.Tk()
 fenetre.title("Mon Dessin")
 
 canvasB=tk.Canvas(height=600,width=600,bg="black")
-button_cercle=tk.Button(text="Cercle")
+button_cercle=tk.Button(text="Cercle", command=dessine_disque)
 button_carre=tk.Button(text="Carré", command=dessine_carre)
-button_croix=tk.Button(text="Croix")
+button_croix=tk.Button(text="Croix", command=dessine_croix)
 button_couleur=tk.Button(text="Choisir une couleur", command=couleure)
 
 canvasB.grid(row=1, column = 1, rowspan= 3)
